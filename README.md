@@ -2,6 +2,10 @@
 
 A full-stack todo list application built with React, Node.js, Express, and MongoDB. The application features a modern UI with authentication, task management, and real-time updates.
 
+## watch demo
+
+[Youtube video link](https://youtu.be/6W7HA7PNwkQ?si=AgnBfqt8d8uhpuoj)
+
 ## Features
 
 ### User Management
