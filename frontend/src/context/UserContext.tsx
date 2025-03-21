@@ -1,28 +1,36 @@
 // src/context/UserContext.tsx
-
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { useUser } from "@clerk/clerk-react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 interface IUserContext {
     user: any | null;
+    setUser: (user: any) => void;
 }
 
-const UserContext = createContext<IUserContext>({ user: null });
+const UserContext = createContext<IUserContext>({
+    user: null,
+    setUser: () => { },
+});
 
 export const useUserContext = () => useContext(UserContext);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const { user, isLoaded } = useUser();
-    const [userData, setUserData] = useState<any>(null);
+    const [user, setUserState] = useState<any>(null);
 
     useEffect(() => {
-        if (isLoaded && user) {
-            setUserData(user);
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUserState(JSON.parse(storedUser));
         }
-    }, [isLoaded, user]);
+    }, []);
+
+    const setUser = (user: any) => {
+        setUserState(user);
+        console.log(user)
+        localStorage.setItem("user", JSON.stringify({ username: user.username, email: user.email }));
+    };
 
     return (
-        <UserContext.Provider value={{ user: userData }}>
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     );
