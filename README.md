@@ -145,7 +145,7 @@ The backend server will start on `http://localhost:7777`
 2. Install dependencies:
 
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 3. Create a `.env` file in the frontend directory with the following variables:
